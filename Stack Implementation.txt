@@ -1,0 +1,92 @@
+#include <stdio.h>
+#include <stdlib.h>
+#define size 5
+int currsize = 0;
+struct Node
+{
+    int data;
+    struct Node *next;
+};
+struct Node *Stack = NULL;
+struct Node *Top = NULL;
+struct Node* CreateNode (int data)
+{
+    struct Node *newnode;
+    newnode = (struct Node*)malloc(1*sizeof(struct Node));
+    newnode->data = data;
+    newnode->next = NULL;
+    
+    return newnode;
+}
+int IsFull()
+{
+    if(currsize >= size)
+        return 1;
+    else 
+        return 0;
+}
+int IsEmpty()
+{
+    if (Stack==NULL)
+        return 1;
+    else 
+        return 0;
+}
+void Push(int data)
+{
+    if (IsFull())
+    {
+        printf("Stack OverFlow");
+    }
+    else
+    {
+        struct Node *newnode = CreateNode(data);
+        newnode->next = Stack;
+        Stack = newnode;
+        Top = Stack;
+    }
+    
+}
+void Pop()
+{
+    if(IsEmpty())
+    {
+        printf("\nStack Underflow");
+    }
+    else 
+    {
+        printf("\n%d is Popped from Stack",Stack->data);
+        Stack = Stack->next;
+        Top = Stack;
+    }
+    
+}
+void Peek()
+{
+    if (Top==NULL)
+    {
+        printf("\nStack is Empty");
+    }
+    else 
+    {
+        printf("\n%d is Top of Stack",Top->data);
+    }
+}
+void Display()
+{
+    struct Node *temp = Stack;
+    printf("\nStack:-  ");
+    while(temp!=NULL)
+    {
+        printf("%d ",temp->data);
+        temp = temp->next;
+    }
+}
+int main()
+{
+    Push(1);
+    Push(2);
+    Push(3);
+    Peek();
+    return 0;
+}
